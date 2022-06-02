@@ -1,0 +1,1225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TurboMind</name>
+    </assembly>
+    <members>
+        <member name="T:TurboMind.Methodology.Reinforcement.IModuloAprendizadoReforcoAdapter">
+            <summary>
+            Adaptador para utilização de seus próprios ambiente de aprendizado por reforço.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.IModuloAprendizadoReforcoAdapter.Reset">
+            <summary>
+            Usado para resetar seu sistema ou envio de reset do Framework.
+            </summary>
+            <returns>Array de double contendo o estímulo inicial do ambiente</returns>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.IModuloAprendizadoReforcoAdapter.Action(System.Double[])">
+            <summary>
+            Utilizado para responder o estímulo da rede neural.
+            </summary>
+            <param name="EstimuloNeural">Recebe o array de estímulo neural da rede,</param>
+            <returns>Array de double de estimulos do ambiente / double Pontuação / Bool finalização do ambiente externo true se finalizado.</returns>
+        </member>
+        <member name="T:TurboMind.Methodology.Reinforcement.ARS">
+            <summary>
+            SIGLA - Augmented Random Search (ARS)<br/>
+            Escola de aprendizado por reforço (conhecida como aprendizado SHALLOW "Aprendizado superficial").<br/>
+            Uma das redes neurais mais poderosas criadas no ano de 2018 pela univerdade de oxford.<br/>
+            Utilizado para IAs que aprende por reforço.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.ARS.#ctor(System.String,System.String)">
+            <summary>
+            Instancia nova escola ARS.
+            </summary>
+            <param name="nomeEscola">nome da escola ARS</param>
+            <param name="descricaoEscola">objetivo da escola ARS</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.ARS.SetupDeTreinamento(System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Double})">
+            <summary>
+            Permite configurar o treino ARS para a rede neural.
+            </summary>
+            <param name="qtdMaximaMatrizesAleatoriasGeradas">Número máximo de matrizes aleatórias que serão geradas para treinar o modelo, lembre-se que o número de matrizes solicitadas geram dobro das mesmas e cada matriz tem uma época inteira, podendo fazer o sistema gerar demoras significativas!.</param>
+            <param name="qtdMelhoresMatrizesSelecionaveis">Informa ao sistema quantas melhores matrizes pontuadas devem ser selecionadas para serem fundidas com a matriz principal.</param>       
+            <param name="qtdMaximaDuracaoSessao">Indica até quando deve durar do treinamento para cada modelo de inteligência artificial gerada no processo de aprendizado. Util para ambientes em que não existe um fim.</param>
+            <param name="qtdEpochs">Quantidade de vezes que o agente será treinado pelo ambiente em cima da duração máxima do episódio</param>
+            <param name="stopPoint">Se preenchido, permite que a rede neural pare o treinamento a partir do momento que a pontuação de stop point for igual a pontuação iterna atingida.</param>
+        </member>
+        <member name="T:TurboMind.Methodology.Reinforcement.Hydra">
+            <summary>
+            Homenagem a Hidra da mitologia grega, se trata de uma inteligência artificial de aprendizado por reforço (Shallow) com 8 cabeças em vez de 2 como na ARS.
+            Apesar de ter um impacto de processamento maior, aprende com melhor desempenho que a ARS devido seu campo de cobertura ser maior e utilizar algoritmos mais sofisticados.
+            Cobrindo uma área maior de sucesso.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.Hydra.#ctor(System.String,System.String)">
+            <summary>
+            Cria nova instancia da escola.
+            </summary>
+            <param name="nomeEscola">Nome desejado para a escola.</param>
+            <param name="descricaoEscola">Descrição prévia sobre a escola, a que ela se destina.</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement.Hydra.SetupDeTreinamento(System.Int32,System.Int32,System.Int32,System.Nullable{System.Double})">
+            <summary>
+            Prepara o setup do treinamento necessário para consumo da rede neural.
+            
+            </summary>
+            <param name="qtdMaximaMatrizesAleatoriasGeradas">
+            Número máximo de matrizes aleatórias que serão geradas para treinar o modelo, 
+            lembre-se que o número de matrizes solicitadas geram dobro das mesmas e cada matriz tem uma época inteira, 
+            podendo fazer o sistema gerar demoras significativas!.
+            </param>
+            
+            <param name="qtdMaximaDuracaoSessao">
+            Informa ao sistema até quantos passos o modelo irá jogar dentro do ambiente de treino.
+            </param>
+            
+            <param name="qtdMaximaAtualizacaoMatrizPrincipal">
+            Informa quantas vezes a rede neural será atualizada (É sua epoch).
+            </param>
+            
+            <param name="stopPoint">
+            Se preenchido, permite que a rede neural pare o treinamento a partir do momento que a pontuação de stop point for 
+            igual a pontuação iterna atingida.
+            </param>
+        </member>
+        <member name="T:TurboMind.Methodology.Reinforcement._MetodologiaAprendizagemPorReforco">
+            <summary>
+            Metodologia de aprendizado por reforço.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement._MetodologiaAprendizagemPorReforco.InternalContractMiddle(System.Double)">
+            <summary>
+            Impedindo que possa derivar esta classe
+            </summary>
+            <param name="key">Código fantasia</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Reinforcement._MetodologiaAprendizagemPorReforco.InserirAmbienteTreinamento(TurboMind.Methodology.Reinforcement.IModuloAprendizadoReforcoAdapter)">
+            <summary>
+            Insere adaptador de aprendizado por reforço para que a metodologia de aprendizado por reforço possa dar o treinamento correto para a rede Neural.
+            </summary>
+            <param name="moduloAprendizadoReforcoAdapter">Adaptador de aprendizado por reforço.</param>
+        </member>
+        <member name="T:TurboMind.Methodology.Supervised.DeepLearning">
+            <summary>
+            Rede neural clássica de aprendizado profundo com multi camadas para aprendizado supervisionado.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised.DeepLearning.#ctor(System.String,System.String)">
+            <summary>
+            Cria uma metodologia de aprendizado DeepLearning.
+            </summary>
+            <param name="nomeEscola">Insire nome personalizado para sua escola.</param>
+            <param name="descricaoEscola">Insire breve descrição para sua escola, objetivos, etc</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised.DeepLearning.SomatoriasPesosNeuroniosPosterioresIndexados(TurboMind.MindFactory.RedeNeural@,System.Int32,System.Int32)">
+            <summary>
+            Encontra a somatória dos gradientes descendentes Locais da camada posterior que estão relacionadas com a saída do neurônio atual que estamos trabalghando.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised.DeepLearning.SetupDeTreinamento(System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            Prepara o setup do treinamento necessário para consumo da rede neural.
+            </summary>
+            <param name="qtdEpochs">Quantidade de vezes que o agente será treinado pelo ambiente de treino!</param>
+            <param name="acompanharTreinamento">Opcional: Permite desenvolvedor acompanhar treinamento da IA via CMD.</param>
+            <param name="apartirDaEpoch">Permite acompanhar treino de agente partir de determinada Época, lembre-se quanto menor o valor, mais oneroso será o treinamento</param>
+        </member>
+        <member name="T:TurboMind.Methodology.Supervised._MetodologiaAprendizadoSupervisionado">
+            <summary>
+            Matorodlogia de aprendizado Supervisionado.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised._MetodologiaAprendizadoSupervisionado.InternalContractMiddle(System.Double)">
+            <summary>
+            Impedindo que possa derivar esta classe
+            </summary>
+            <param name="key">Código fantasia</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised._MetodologiaAprendizadoSupervisionado.InserirAmbienteTreinamento(System.Collections.Generic.List{System.Double[]},System.Collections.Generic.List{System.Double[]})">
+            <summary>
+            Permite inserir parâmetros do treinamento de aprendizado supervisionado para treinar a rede!
+            É importante que o número de linhas da situação problema seja igual do gabarito.
+            </summary>
+            <param name="situacaoProblema">Tabela com dados reais que o agente encontrará em seu dia a dia!</param>
+            <param name="gabarito">Resposta real, ou valor aproximado tolerável que a IA deve apresentar!</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised._MetodologiaAprendizadoSupervisionado.ConfigurarFuncaoErro(TurboMind.FuncaoErro,System.Double,System.Double)">
+            <summary>
+            Permite inserir e configurar uma função de erro personalizada para a escola.
+            O modo como a IA percebe o erro influencia na velocidade que ela aprende bem como seu sucesso.
+            </summary>
+            <param name="funcaoErro">Enum do tipo da função de erro que será utilizada pela escola.</param>
+            <param name="alpha">Utilizado somente com funções de erro adaptativas.</param>
+            <param name="c">Constante que trata valores próximos quando X proximo a 0 para não ocorrer erros de divisão por zero, utilizado somente em funções adaptativas e dinâmicas.</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Supervised._MetodologiaAprendizadoSupervisionado.GerarProgramaTreinamento(System.String,TurboMind.TipoMapeamento,System.String,System.String)">
+            <summary>
+            Cria duas listas double, uma de situação problema e outra de gabarito baseadas em um arquivo CSV.
+            Pode utilizar essas listas no treinamento do aprendizado supervisionado.
+            </summary>
+            <param name="atalhoTabela">
+            Local de onde encontra o arquivo CSV com dados desejados para aprendizado!
+            </param>
+            
+            <param name="modoMapeamentoTabela">
+            Seleciona o modo de interpretação e análise desses dados para ser reescrito nas listas. (Vide Enum)
+            </param>
+            <param name="prefixoEntrada">
+            Utilizado apenas em mapeamento ENTRADA_SAIDA.
+            Prefixo utilizado para o sistema reconhecer quais colunas são entrada de dados utilizando um códio previamente adicionado nas colunas
+            de interesse da tabela. A seguir 3 exemplos de prefixo personalizado (Sempre seguido com dois pontos).
+            Ex: [In: peso] , [entrada: Velocidade],  [e: altura] 
+            Todas colunas da tabela que possuirem: In:, entrada: ou e: serão capturadas e interpretadas como entrada.
+            </param>
+            
+            <param name="prefixoSaida">
+            Utilizado apenas em mapeamento ENTRADA_SAIDA.
+            Prefixo utilizado para o sistema reconhecer quais colunas representam saída de dados utilizando um códio previamente adicionado nas colunas
+            de interesse da tabela.
+            Ex: [Output: Força] , [Out: Tamanho],  [saida: Alcance].
+            Todas colunas da tabela que possuirem: Output:, Out: ou O: serão capturadas e interpretadas como saída.
+            </param>
+            <returns>Lista de situação problema e lista de gabarito para ser alimentada no aprendizado supervisionado.</returns>
+        </member>
+        <member name="T:TurboMind.Methodology.Contract._Metodologia">
+            <summary>
+            Contrato de Metodologia de treinamento de Agente.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Methodology.Contract._Metodologia.InternalContract(System.Double)">
+            <summary>
+            Impedindo que possa derivar esta classe
+            </summary>
+            <param name="key">Código fantasia</param>
+        </member>
+        <member name="M:TurboMind.Methodology.Contract._Metodologia.AvaliarPrePerformanceTreinamento(TurboMind.MindFactory.Agente@,System.Int32,System.Boolean,System.Double)">
+            <summary>
+            Valida se os dados respeitam as necessidades.
+            </summary>
+            <param name="agenteAprendiz"></param>
+            <param name="qtdEpochs"></param>
+            <param name="exibirRelatorioExecucao"></param>
+            <param name="tolerancia"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TurboMind.MindFactory.Agente">
+            <summary>
+            Bem vindo ao Agente, onde você instala as dependências de sua inteligência artificial!
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.#ctor(System.String,System.String)">
+            <summary>
+            Cria um novo agente!
+            </summary>
+            <param name="nomeAgente">Nome do Agente</param>
+            <param name="propositoAgente">Propósito da IA, para o que ela se destina! Que tipo de solução.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Recupera o Agente através de um token salvo anteriormente.
+            </summary>
+            <param name="tokenAgent">Token de string salvo anteriormente.</param>
+            <param name="secret">Palavra chave para decifrar o Agente.</param>
+            <param name="useNewId">Se true, gera um novo Id para o Agente.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.InserirRedeNeural(TurboMind.MindFactory.RedeNeural)">
+            <summary>
+            Insere rede neural no agente.
+            </summary>
+            <param name="redeNeural">
+            Insere uma rede neural no Agente, a rede pode ser treinada ou não.
+            </param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.InserirSoqueteEntrada(TurboMind.Intercomunication.Contract._SoqueteEntrada)">
+            <summary>
+            Insere soquete de entrada no Agente para se comunicar com a rede neural. Seu uso é opcional.
+            </summary>
+            <param name="soqueteEntrada">Soquete de entrada.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.InserirSoqueteDeSaida(TurboMind.Intercomunication.Contract._SoqueteSaida)">
+            <summary>
+            Insere Soquete de Saída no agente, o soquete de saída interpreta as saídas da rede neural para o ambiente externo 
+            de acordo com as necessidades desse ambiente. Seu uso é opcional
+            </summary>
+            <param name="soqueteSaida">Soquete de saída.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.InserirMetodologiaDeAprendizado(TurboMind.Methodology.Contract._Metodologia)">
+            <summary>
+            Insere a metodologia de aprendizado no agente, a metodologia deve estar com o Setup de treinamento configurado.
+            </summary>
+            <param name="metodologia">Metodologia de aprendizado</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.InteragirComAmbiente(System.Double[])">
+            <summary>
+            Permite que o agente interaja com um ambiente através, requer que préviamente tenha uma rede neural.
+            </summary>
+            <param name="entradas">
+            Entrada de dados de um momento do ambiente externo. Requer que a quantidade de entradas do ambiente externo 
+            seja iguais a quantidade de entradas da rede neual.
+            </param>
+            <returns>Array de double com a resposta do estímulo dado determinada combinação de entrada.</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.RemoverRedeNeural">
+            <summary>
+            Remove RedeNeural existente se ela existir.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.RemoverMetodologia">
+            <summary>
+            Remove metodologia se ela existir.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.RemoverSoqueteEntrada">
+            <summary>
+            Remove Soquete de entrada se ele existir.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.RemoverSoqueteSaida">
+            <summary>
+            Remove Soquete de saída se ele existir.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.ClonarRedeNeural">
+            <summary>
+            Clona rede Neural existente gerando novo Id.
+            </summary>
+            <returns>Rede Neural existente</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.ClonarMetodologia">
+            <summary>
+            Resgata Metodologia existente.
+            </summary>
+            <returns>Metodologia existente</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.ClonarSoqueteEntrada">
+            <summary>
+            Resgata Soquete de entrada existente.
+            </summary>
+            <returns>Soquete de entrada existente</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.ClonarSoqueteSaida">
+            <summary>
+            Resgata Soquete de saída existente.
+            </summary>
+            <returns>Soquete de saída existente</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.ClonarAgente">
+            <summary>
+            Clona agente e todos seus dados internos, com novo Id de agente.
+            </summary>
+            <returns>Agente existente</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.AutoTreinamento">
+            <summary>
+            Permite que o agente auto treine, requer que o mesmo possua uma metodologia carregada.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.AvaliarPerformanceTreinamento(System.Int32,System.Boolean,System.Double)">
+            <summary>
+             Avalia a porcentagem de acertividade da rede neural.
+            </summary>
+            <param name="qtdEpochs">Informa quantidade de Epocas que devem ser executadas durante o teste.</param>
+            <param name="exibirRelatorioExecucao">Se solicitado exibição, o sistema irá gerar uma prévia do resumo</param>
+            <param name="tolerancia">Desvio do valor exato de saída aceitável para mais ou para menos</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.Agente.GetToken(System.String)">
+            <summary>
+            Salva sua rede neural com um token.
+            </summary>
+            <param name="secret">Chave criada pelo desenvolvedor para cifrar o token</param>
+            <returns>string Token - Este token pode ser usado para trazer o Agente</returns>
+        </member>
+        <member name="T:TurboMind.MindFactory.GeradorDeSementes">
+            <summary>
+            Classe que gera a semente randomica que popula os pesos e Bias da rede neural.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.#ctor(TurboMind.MindFactory.GeradorDeSementesEntity)">
+            <summary>
+            Contrutor que auxilia montagem de instancias que vão para o banco de dados bem como plotagem padrão da rede neural.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.#ctor(TurboMind.Seed)">
+            <summary>
+            Construtor que gera semente randômica de acordo com a seed informada.
+            </summary>
+            <param name="seed"></param>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.GerarRedeNeuralAletoria(TurboMind.MindFactory.RedeNeural,TurboMind.Seed,System.Boolean)">
+            <summary>
+            Gera Rede neural baseada pelo tipo.
+            </summary>
+            <param name="redeNeuralModelo"></param>
+            /// <param name="useBIAS">Caso Rede Neural Utilize BIAS, deve estar como true</param>
+            <param name="tipoGeracao"> GAUSSIAN_NORMAL_DISTRIBUTION / GAUSSIAN_NORMAL_RANDOM / RANDOMIC_DOUBLE</param>
+            <returns>Nova Rede neural com valores de pesos e BIAS aleatórios</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.GerarNumeroAleatorio(TurboMind.Seed)">
+            <summary>
+            Gera apenas um valor aleatório!
+            </summary>
+            <param name="seedName">Tipo de número a ser gerado</param>
+            <returns>Valor double gerado!</returns>
+        </member>
+        <member name="T:TurboMind.MindFactory.GeradorDeSementes.GeradorSementesAdapter">
+            <summary>
+            Adapter que simplifica qual seed será semeada.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.GeradorSementesAdapter.#ctor(TurboMind.Seed)">
+            <summary>
+            Instancia o Gerador de sementes adapter de acordo com a seed que será utilizada.
+            </summary>
+            <param name="seed">seed enum</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.GeradorDeSementes.GeradorSementesAdapter.GerarValor">
+            <summary>
+            Cria um double aleatório de acordo com a semente.
+            </summary>
+            <returns>valor double</returns>
+        </member>
+        <member name="T:TurboMind.MindFactory.RedeNeural">
+            <summary>
+            Permite criar uma rede neural dinâmica com quantas entradas e saídas forem necessárias.
+            Para redes muito extensa, recomenda-se o uso de VanishingExplodingConfiger.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.#ctor(System.Double,System.Int32,System.Int32[])">
+            <summary>
+            Cria nova instancia da rede neural de acordo com os parâmetros fornecidos.
+            </summary>
+            <param name="taxaAprendizado">
+            Permite inserir a taxa de velocidade que a rede aprende, valores recomendados entre 0,01 a 0,1.
+            </param>
+            
+            <param name="quantidadeEntradas">
+            Insere quantidade de entradas que a rede neural deve possuir na primeira camada!
+            </param>
+            
+            <param name="quantidadesNeuroniosPorLayer">
+            Insere (Separando por virgulas) quantidade de neuronios por camada (Layer). 
+            A primeira camada se conecta com a interface de entrada (Se ela existir) e 
+            a ultima camada se conecta com a interface de saída se ela existir,
+            caso haja somente uma camada, a mesma se conecta com ambas.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Recupera rede neural através de um token salvo anteriormente.
+            </summary>
+            <param name="neuroToken">Token de string salvo anteriormente.</param>
+            <param name="secret">Palavra chave para decifrar o token.</param>
+            <param name="useNewId">Se true, gera um novo Id para a rede neural</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.InserirEditarNoise(System.Double)">
+            <summary>
+            Insere ou edita o desvio padrão, utilizado apenas em Aprendizado por reforço.
+            </summary>
+            <param name="noise">Desvio padrão, aceitaveis valores maior que 0 absoluto</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.InserirEditarGama(System.Double)">
+            <summary>
+            Insere ou edita o fator de desconto, utilizado somente em aprendizado por reforço.
+            </summary>
+            <param name="gama">fator de desconto, aceitaveis valores maior que 0 absoluto</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.DesabilitarVanishingExplodingConfiger">
+            <summary>
+            Desabilita uso do Vanish atual.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.HabilitarVanishingExplodingConfiger">
+            <summary>
+            Habilita Vanish anterior. No caso de não haver, usa o padrão.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.ConfigurarSeed(TurboMind.Seed)">
+            <summary>
+            Configura tipo de geração de pesos aleatórios.
+            </summary>
+            <param name="seed">Semente de geração (vide enum).</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.VanishingExplodingPolicyConfiger(TurboMind.Comportament,System.Int32,System.Double,System.Double,System.Int32)">
+             <summary>
+             Permite que o agente policie as saídas de seus neurônios, evitando explosão (exploding) ou vazamento (vanish) do gradiente
+             que impede redes neurais de aprender!
+             </summary>
+             
+             <param name="comportamentoRede">
+             Comando que influência como será o comportamento do funcionamento da saída do neuronio. (Consulte o Enum).
+             </param>
+             
+             <param name="valExploding">
+             Delimitação máxima de até onde a saída da rede neural pode atingir, valores recomendados devem ser positivos. 
+             Mas voce pode operar com valores negativos, nesse caso, o valor do valVanish deve ser menor que da explosão (SEMPRE).<br/>
+             OBS: Recomendado manter o valor 1. Valores menores pode onerar processamento e impedir a rede aprender, use com sabedoria.
+             </param>
+             
+             <param name="valVanish">
+             Delimitação mínima de até onde a saída da rede neural pode atingir, valores recomendados devem ser negativos.
+             Mas voce pode operar com valores positivos, nesse caso, o valor da valExploding deve ser maior que do vazamento (SEMPRE).<br/>
+             OBS: Recomendado manter o valor -1. Valores maiores pode onerar processamento (Dependendo do comportamento desejado.) e impedir a rede aprender.
+             </param>
+             
+             <param name="creditUpdate">
+             Informa para a rede até quantas vezes por neuronio ele deve tentar fazer a saída estar dentro da margem permitida.
+             Pode acontecer da calibração de um valor Não conseguir fazer ajustes dos pesos e BIAS de primeira.
+             </param>
+            
+             <param name="precisao">
+             Valor de casas decimais de comparação depois da virgula que o sistema deve considerar. A precisão impacta no processamento.
+             Se a precisão for alta, o credit update também deverá ser alto, recomendado 3.
+             Mas se for algo mais cirurgico, use 5.
+             </param>
+             
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.ConfigurarBIAS(TurboMind.BiasOperation,System.Double,System.Double)">
+            <summary>
+            Permite que a rede neural controle o BIAS, evitando números que possam ser gritantes e virar ruido no aprendizado.
+            </summary>
+            
+            <param name="BIASOperation">
+            Seleção do modo de operação desejado para o BIAS. 
+            O modo de operação impacta diretamente em: calculos internos, calibrações e geração de valores aleatórios. 
+            Consulte o Enum para mais detalhes.
+            </param>
+            
+            <param name="startBIASVal">
+            Valor utilizado com BIAS operando com comando STARTER para indicar valor inicial ou 
+            utilizado com comando RANGE se tratando de limite do primeiro valor, consulte o ENUM.
+            </param>
+            
+            <param name="finishBIASVal">
+            Valor final do BIAS operando apenas com o comando RANGE.
+            </param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.ClonarRedeNeural">
+            <summary>
+            Clona rede neural gerando novo Id. Pois considera que se trata de outro indivíduo.
+            </summary>
+            <returns>Rede neural clonada com novo id.</returns>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.InserirEditarFuncaoAtivacao(System.Int32,TurboMind.ActiveFunc,System.Double)">
+            <summary>
+            Insere ou edita uma função de ativação específica por indexação de layer.
+            </summary>
+            <param name="indexLayer">indexação da Layer da rede neural.</param>
+            <param name="tipoFuncao">Enum do tipo de função de ativação desejada.</param>
+            <param name="alpha">Padrão é 0.2, nem todas funções de ativação utilizam alpha, valor aceito deve ser maior que 0 absoluto</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.InserirEditarTodasFuncoesAtivacao(TurboMind.ActiveFunc,System.Double)">
+            <summary>
+            Insere ou edita todas funções de ativação de todas as layers.
+            </summary>
+            <param name="tipoFuncao">Enum da função de ativação desejada.</param>
+            <param name="alpha">Padrão valor 0.2, é utilizado apenas por algumas funções de ativação.</param>
+        </member>
+        <member name="M:TurboMind.MindFactory.RedeNeural.GetToken(System.String)">
+            <summary>
+            Salva rede neural com um token.
+            </summary>
+            <param name="secret">
+            Chave criada pelo desenvolvedor para cifrar o token.
+            </param>
+            
+            <returns>
+            string Token - Este token pode ser usado para trazer a rede neural com todas suas configurações de volta.
+            </returns>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada">
+            <summary>
+            Converte escalas do mundo real em valores menores reconhecidos para a inteligência artificial.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada.#ctor(System.String,System.String,System.Int32,System.Double,System.Double)">
+            <summary>
+            Instancia um soquete de normalização de entrada.
+            </summary>
+            <param name="nomeSoquete">Nome do soquete</param>
+            <param name="descricaoSoquete">Descrição do soquete, a que se destina o mesmo!</param>
+            <param name="quantidadeEntradas">Insere a quantidade de entradas que irá possuir este soquete.</param>
+            <param name="limiteSaidaMinimaParaIA">Insere qual é o menor valor que vai entrar dentro da Inteligência artificial, Recomendado entre -1 e 0</param>
+            <param name="limiteSaidaMaximaParaIA">Insere qual é o maior valor que vai entrar dentro da Inteligência artificial, Recomendado entre 0 e 1</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada.ConfigurarEntrada(System.Int32,System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Configura determinada entrada do soquete pela sua indexação. Todas entradas devem ser configuradas.
+            </summary>
+            <param name="ordenacao">Indexação de entrada a ser configurada!</param>
+            <param name="nomeEntrada">Nome de identificação dessa entrada Ex: Kilo, temperatura, fahrenheit, etc...</param>
+            <param name="descricaoEntrada">Descrição prévia dessa entrada! O que ela faz, a que se destina.</param>
+            <param name="valorRealEntradaMaxima">Insira o valor máximo que essa entrada interpreta do ambiente externo! Ex Peso: 200kg </param>
+            <param name="valorRealEntradaMinima">Insira o valor mínimo que essa entrada interpreta do ambiente externo! Ex Peso: 1kg</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada.ConfirgurarTodasEntradas(System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Configura Todas as entradas com mesma série de nomes, descrições, bem como valores máximos e mínimos.
+            </summary>
+            <param name="nomeGenerico">Nome genérico que todas entradas irão receber + sufixo da indexação. </param>
+            <param name="descricaoGenerica"> Descrição genérica que todas entradas irão receber + sufixo de indexação.</param>
+            <param name="valorRealMaximoGenerico">Valor real máximo interpretável que todas entradas irão ser parametrizadas!</param>
+            <param name="valorRealMinimoGenerico">Valor real mínimo interpretável que todas entradas irão ser parametrizadas!</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada.PersonalizarEntrada(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma entrada específica pela indexação.
+            </summary>
+            <param name="index">Posição da entrada que será personalizada.</param>
+            <param name="nomeEntrada">Nome desejado da entrada.</param>
+            <param name="descricaoEntrada">Descrição do que se aplica a entrada, a que se destina.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoEntrada.PersonalizarTodasEntradas(System.String,System.String)">
+            <summary>
+            Persoanaliza todas as entradas de forma rápida juntamente com uma descrição genérica.
+            </summary>
+            <param name="nomeGenerico">nome genérico + sufixo de indexação.</param>
+            <param name="descricaoGenerica">descrição genérica + sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SoquetePadronizacaoEntrada">
+            <summary>
+            Soquete especialmente feito para aprendizado por reforço.
+            Utilizado em situações em que não se tem um parâmetro correto do ambiente externo,
+            Onde o agente se move pelo cenário mas não tem valores exatos do que existe em volta.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoquetePadronizacaoEntrada.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Instancia soquete de Padronização de entrada.
+            </summary>
+            <param name="nomeSoquete">Nome do soquete.</param>
+            <param name="descricaoSoquete">Descrição do soquete.</param>
+            <param name="quantidadeEntradas">Quantidade de entradas que esse soquete irá possuir.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoquetePadronizacaoEntrada.PersonalizarEntrada(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma entrada específica pela indexação.
+            </summary>
+            <param name="index">Posição da entrada que será personalizada.</param>
+            <param name="nomeEntrada">Nome desejado da entrada.</param>
+            <param name="descricaoEntrada">Descrição do que se aplica a entrada, a que se destina.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoquetePadronizacaoEntrada.PersonalizarTodasEntradas(System.String,System.String)">
+            <summary>
+            Persoanaliza todas as entradas de forma rápida juntamente com uma descrição genérica.
+            </summary>
+            <param name="nomeGenerico">nome genérico + sufixo de indexação.</param>
+            <param name="descricaoGenerica">descrição genérica + sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.Contract._SoqueteEntrada">
+            <summary>
+            Soquete de Entrada.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteEntrada.InternalContract(System.Double)">
+            <summary>
+            Impedindo que possa derivar esta classe
+            </summary>
+            <param name="key">Código fantasia</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteEntrada.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Construtor contendo métodos comuns para qualquer tipo de entrada.
+            </summary>
+            <param name="nomeSoquete">Nome do soquete</param>
+            <param name="descricaoSoquete">Descrição do soquete</param>
+            <param name="quantidadeEntradas">Quantidade de entradas que possui o soquete.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteEntrada.ValidarRegraNegocioComumConstrutor(System.String,System.String,System.Int32)">
+            <summary>
+            Valida regras de negócio do método construtor genérido universal.
+            </summary>
+            <param name="nomeSoquete">Nome do soquete não deve ser nula nem vazia</param>
+            <param name="descricaoSoquete">Descrição do soquete não deve ser nula nem vazia.</param>
+            <param name="quantidadeEntradas">Quantidade de entradas que não deve ser igual nem inferior a zero.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteEntrada.ConverterValorDeEntrada(System.Double[])">
+            <summary>
+            Vc nao pode ver isso!
+            </summary>
+            <param name="entradasDeValorReal"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TurboMind.Intercomunication.Contract._SoqueteSaida">
+            <summary>
+            Contrato Soquete Saída.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteSaida.InternalContract(System.Double)">
+            <summary>
+            Impedindo que possa derivar esta classe
+            </summary>
+            <param name="key">Código fantasia</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.Contract._SoqueteSaida.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Construtor comum para soquete de saída.
+            </summary>
+            <param name="nomeSoqueteSaida">Nome do soquete.</param>
+            <param name="descricaoSoqueteSaida">d=Descrição do soquete</param>
+            <param name="quantidadeSaidas">Quantidade de saídas que terá esse soquete.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SaidaBitToIndexNum">
+            <summary>
+            Transforma o valor da saída indexada (Sendo esse valor maior que 0) no valor correspondente número da indexação daquela saída. O contrário será -1 e deve ser desconsiderado.<br/>
+            Ex: Se um valor for maior que 0, e este valor estiver na indexação 5, o valor da saída será um double 5.0 .<br/>
+            Se o valor da indexação 5 for menor que 0, a saída terá um double -1.<br/>
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaBitToIndexNum.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Instancia novo Soquete de Saída SaidaBitToIndexNum.
+            </summary>
+            <param name="nomeSoqueteSaida">Nome do soquete de saída</param>
+            <param name="descricaoSoqueteSaida">Descrição prévia para este soquete de saída, a que se destina.</param>
+            <param name="quantidadeSaidas">Insere quantidade de saídas que este soquete deve possuir (Que deve ser igual a contidade de neurônios de saída da rede neural).</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaBitToIndexNum.PersonalizarSaida(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma determinada saída através da indexação.
+            </summary>
+            <param name="index">Indexação da saída que será personalizada.</param>
+            <param name="nomeSaida">Nome da saída.</param>
+            <param name="descricaoSaida">Descrição da saída.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaBitToIndexNum.PersonalizarTodasSaidas(System.String,System.String)">
+            <summary>
+            Personaliza todas as saídas do soquete de saída.
+            </summary>
+            <param name="nomeGenerico">Nome genérico seguido de sufixo de indexação.</param>
+            <param name="descricaoGenerica">Descrição genérica seguida de sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SaidaDigital">
+            <summary>
+            Transforma todos valores de saídas que sejam maiores que zero em valores 1, e valores iguais ou menores que zero em 0.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaDigital.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Instância Soquete de Saída Digital.
+            </summary>
+            <param name="nomeSoqueteSaida">Nome do soquete de saída digital.</param>
+            <param name="descricaoSoqueteSaida">Descrição do soquete de saída digital.</param>
+            <param name="quantidadeSaidas">Quantidade de saídas que este soquete terá, lembrando que deve ser igual a quantidade de saídas da rede neural.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaDigital.PersonalizarSaida(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma determinada saída através da indexação.
+            </summary>
+            <param name="index">Indexação da saída que será personalizada.</param>
+            <param name="nomeSaida">Nome da saída.</param>
+            <param name="descricaoSaida">Descrição da saída.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaDigital.PersonalizarTodasSaidas(System.String,System.String)">
+            <summary>
+            Personaliza todas as saídas do soquete de saída.
+            </summary>
+            <param name="nomeGenerico">Nome genérico seguido de sufixo de indexação.</param>
+            <param name="descricaoGenerica">Descrição genérica seguida de sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SaidaPotencial">
+            <summary>
+            Seta a saída cujo o maior valor corresponder a ela. Se duas ou mais saídas possuirem mesmo valor, seta todas as saídas empatadas.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaPotencial.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Intancia soquete de Saída Potencial.
+            </summary>
+            <param name="nomeSoqueteSaida">Nome do soquete de normalização de saída.</param>
+            <param name="descricaoSoqueteSaida">Descrição do soquete de saída.</param>
+            <param name="quantidadeSaidas">Quantidade de saídas que o soquete de normalização de saída possui e que deve ser igual a quantidade de saída da rede neural.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaPotencial.PersonalizarSaida(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma determinada saída através da indexação.
+            </summary>
+            <param name="index">Indexação da saída que será personalizada.</param>
+            <param name="nomeSaida">Nome da saída.</param>
+            <param name="descricaoSaida">Descrição da saída.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SaidaPotencial.PersonalizarTodasSaidas(System.String,System.String)">
+            <summary>
+            Personaliza todas as saídas do soquete de saída.
+            </summary>
+            <param name="nomeGenerico">Nome genérico seguido de sufixo de indexação.</param>
+            <param name="descricaoGenerica">Descrição genérica seguida de sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Intercomunication.SoqueteNormalizacaoSaida">
+            <summary>
+            Recebe em sua entrada um valor da rede neural e converte em valor interpretável para a altura da saída do ambiente externo.
+            </summary>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoSaida.#ctor(System.String,System.String,System.Int32,System.Double,System.Double)">
+            <summary>
+            Intancia soquete de normalização de saída.
+            </summary>
+            <param name="nomeSoqueteSaida">Nome do soquete de normalização de saída.</param>
+            <param name="descricaoSoqueteSaida">Descrição do soquete de saída.</param>
+            <param name="quantidadeSaidas">Quantidade de saídas que o soquete de normalização de saída possui e que deve ser igual a quantidade de saída da rede neural.</param>
+            <param name="limiteSaidaMinimaDaRede">Informa qual é o menor valor de saída que sua rede opera. Ex: -1 ; 0</param>
+            <param name="limiteSaidaMaximaDaRede">Informa qual é o maior valor que sua que sua rede opera Ex: 1 ; 1.1</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoSaida.ConfigurarSaida(System.Int32,System.Double,System.Double)">
+            <summary>
+            Configura determinada saída pela sua indexação.
+            </summary>
+            <param name="maiorValorSaida">Maior valor que esta saída indexada pode enviar para o ambiente externo receber e que este ambiente externo suporte..</param>
+            <param name="menorValorSaida">Menor valor que esta saída indexada pode enviar para o ambiente externo receber e que este ambiente externo suporte..</param>
+            <param name="indexacaoSaida">Indexação da saída desejada a configurar.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoSaida.ConfigurarTodasSaidas(System.Double,System.Double)">
+            <summary>
+            Configura todas as saídas com valores genéricos.
+            </summary>
+            <param name="menorValorNeuralGenerico">Menor valor genérico que esta saída pode enviar para o ambiente externo.</param>
+            <param name="maiorValorSaidaGenerico">Maior valor genérico que essa saída pode enviar para o ambiente externo.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoSaida.PersonalizarSaida(System.Int32,System.String,System.String)">
+            <summary>
+            Personaliza nome e descrição de uma determinada saída através da indexação.
+            </summary>
+            <param name="index">Indexação da saída que será personalizada.</param>
+            <param name="nomeSaida">Nome da saída.</param>
+            <param name="descricaoSaida">Descrição da saída.</param>
+        </member>
+        <member name="M:TurboMind.Intercomunication.SoqueteNormalizacaoSaida.PersonalizarTodasSaidas(System.String,System.String)">
+            <summary>
+            Personaliza todas as saídas do soquete de saída.
+            </summary>
+            <param name="nomeGenerico">Nome genérico seguido de sufixo de indexação.</param>
+            <param name="descricaoGenerica">Descrição genérica seguida de sufixo de indexação.</param>
+        </member>
+        <member name="T:TurboMind.Cloner`1">
+            <summary>
+            Clona objetos de forma profunda, ou seja tanto as coisas externas quanto as coisas mais internas como sub-objetos, nesse caso
+            deve assianr todos objetos a serem clonados com a notation [Serializable].
+            </summary>
+            <typeparam name="T"></typeparam>    
+        </member>
+        <member name="T:TurboMind.BiasOperation">
+            <summary>        
+            Seleciona o tipo de Bias e respectivo comportamento que a rede Neural terá com ele.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.DEFAULT">
+            <summary>
+            Operação padrão, permite que o BIAS varie em entre 1 e -1 automaticamente, qualquer valor que o sistema gerar que 
+            possa exceder esses valores, é impedido que o faça mantendo até o seu limite.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.NOT">
+            <summary>
+            BIAS não será utilizado no modelo.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.OP1">
+            <summary>
+            BIAS varia de 0 a 1.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.ON1">
+            <summary>
+            BIAS varia de 0 a -1.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.JAILBREAK">
+            <summary>
+            BIAS Livre para operar em qualquer valor (Excedendo inclusive +1 ou -1) ao infinito se necessário.
+            startBIASVal e finishBIASVal são desconsiderados. Altamente recomendado para a IA HYDRA.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.RANGE">
+            <summary>
+            BIAS Opera em valores pré estabelecidos pelo usuário variando nos valores do intervalo de startBIASval e 
+            finishBIASVal. OBS: Valor de starBIASVal deve ser Menor que finishBIASVal.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.STARTER">
+            <summary>
+            Todos os BIAS da rede neural é iniciado com um valor desejado, use startBIASVal para colocar esse valor, 
+            o campo finishVal é ignorado.
+            </summary>
+        </member>
+        <member name="F:TurboMind.BiasOperation.CONSTANT">
+             <summary>
+            O Valor do BIAS será constante e decidido pelo desenvolvedor na hora que configura o mesmo. 
+            Use startBIASVal para colocar este valor. Campo finishBIASVal é ignorado.
+             </summary>
+        </member>
+        <member name="T:TurboMind.Escola">
+            <summary>
+            Seleciona o método de aprendizado que a rede neural utilizará sendo:
+            </summary>
+        </member>
+        <member name="F:TurboMind.Escola.ARS">
+            <summary>
+            SIGLA - Augmented Random Search (ARS)<br/>
+            Escola de aprendizado por reforço (conhecida como aprendizado SHALLOW "Aprendizado superficial").<br/>
+            Uma das redes neurais mais poderosas criadas no ano de 2018 pela univerdade de oxford.<br/>
+            Utilizado para IAs que aprendem por reforço.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Escola.HYDRA">
+            <summary>
+            SIGLA - Homenagem a Hydra da mitologia grega, se trata de uma inteligência artificial de aprendizado por reforço (Shallow) com 8 cabeças em vez de 2 como na ARS.
+            Apesar de ter um impacto de processamento maior, aprende com melhor desempenho que a ARS devido seu campo de cobertura ser maior e utilizar algoritmos mais sofisticados.
+            Cobrindo uma área maior de sucesso.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Escola.DEEP_LEARNING">
+            <summary>
+            Rede neural clássica de aprendizado profundo com multi camadas para aprendizado supervisionado.
+            </summary>
+        </member>
+        <member name="T:TurboMind.Seed">
+            <summary>
+            Permite selecionar um tipo de flutuação de qualidade de valores randômicos para os pesos e BIAS da inteligência artificial.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Seed.GAUSSIAN_NORMAL_DISTRIBUTION">
+             <summary>
+            Gera valores randômicos levando em consideração a disperção gaussiana com valores comuns entre -1 e 1, 
+            Raros entre -2 e 2 e extremamente rados entre -3 e 3.
+             </summary>
+        </member>
+        <member name="F:TurboMind.Seed.GAUSSIAN_NORMAL">
+             <summary>
+            Gera valores randômicos levando em consideração a disperção gaussiana, porém os valores menores que -1 e 
+            maiores que 1 são mais comuns.
+             </summary>
+        </member>
+        <member name="F:TurboMind.Seed.RANDOMIC_DOUBLE">
+             <summary>
+            Gera valores aleatórios diversos que variam de 0 a 9 sem obedecer padrões.
+             </summary>
+        </member>
+        <member name="T:TurboMind.SoquetInEnum">
+            <summary>
+            Soquete de entrada para rede neural interepretar os estímulos do ambiente externo.
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetInEnum.SoqueteNormalizacaoEntrada">
+            <summary>
+            Converte valores muito grandes ou muito pequenos do mundo real em uma faixa de valor dimensionável para a rede neural. Para isso, o desenvolvedor precisa préviamente saber qual o valor máximo e mínimo que a rede neural possui, bem como valores máximos e mínimos desse ambiente externo.
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetInEnum.SoquetePadronizacaoEntrada">
+            <summary>
+            Atualiza os valores de entrada em forma de módulo em tempo de execução, utilizado em ambientes em que sabemos o inicio mas desconhecemos os parâmetros finais. Fazendo com que o soquete de padronização se adeque a valores interpretáveis pela rede neural a cada passo.
+            </summary>
+        </member>
+        <member name="T:TurboMind.SoquetOutEnum">
+            <summary>
+            Seleciona o tipo de soquete de saída com os dados processados pela rede neural para o mundo externo.
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetOutEnum.SaidaBitToIndexNum">
+            <summary>
+            Transforma o valor da saída indexada (Sendo esse valor maior que 0) no valor correspondente número da indexação daquela saída. O contrário será -1 e deve ser desconsiderado.<br/>
+            Se um valor for maior que 0, e este valor estiver na indexação 5, o valor da saída será um double 5.<br/>
+            Se o valor da indexação 5 for menor que 0, a saída terá um double -1.<br/>
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetOutEnum.SaidaDigital">
+            <summary>
+            Se uma de suas saídas possuir valor maior que 0, seta essa sáída como 1. Se igual ou menor que zero, seta como 0.
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetOutEnum.SoqueteNormalizacaoSaida">
+            <summary>
+            Converte valores de saída muito pequenos para valores de saída maiores. Útil para dar respostas a mesma altura do ambiente externo.<br/>
+            Funciona como o soquete de Normalização de entrada, nesse caso ele normaliza a saída.
+            </summary>
+        </member>
+        <member name="F:TurboMind.SoquetOutEnum.SaidaPotencial">
+            <summary>
+            Seta a saída cujo o maior valor corresponder a ela. Se duas ou mais saídas possuirem mesmo valor, seta todas as saídas empatadas.
+            </summary>
+        </member>
+        <member name="T:TurboMind.ActiveFunc">
+            <summary>                        
+            Seleciona a função de ativação para gerar onda de saída dos neurônios de acordo com a necessidade.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.ArcTan">
+            <summary>
+            ArcoTangente<br/>
+            Util para classificar grupos mais genéricos sem muito detalhe de profundidade, tem curva agressiva, 
+            usar valores de taxa de aprendizado extremamente pequenos.
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.BentIdentity">
+            <summary>
+            Função que hipersensibilizada de valores. Gerando um ganho maior na sua saída e calibrações maiores no sistema.
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Degrau">
+            <summary>
+            Função simples e digital, define saídas 1 ou 0 de acordo com o limite estabelecido.
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.ELU">
+            <summary>
+            FAZ USO DE Alpha. Valores recomendados a partir de 0.01.
+            Função de ativação mais utilizada pelas escolas modernas. 
+            Referencias em: https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions        
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Gaussian">
+            <summary>
+            https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.GELU">
+            <summary>
+            Gaussian Error Linear Unit.<br/>
+            https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Identity">
+            <summary>
+            Função padrão! Não altera saída do neurônio. Utilizada em camadas de saídas de redes neurais de regressão.
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.LeakyReLU">
+            <summary>
+            FAZ USO DE Alpha. Valores recomendados a partir de 0.01.
+            https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Mish">
+            <summary>
+            https://en.wikipedia.org/wiki/Activation_function
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.PReLU">
+            <summary>
+            FAZ USO DE Alpha. Valores recomendados a partir de 0.01.
+            Parametric Rectified Linear Unit<br/>
+            https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.ReLU">
+            <summary>
+            Ativação Linear Retificada.<br/>
+            https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SELU">
+            <summary>
+            https://paperswithcode.com/method/selu#:~:text=Scaled%20Exponential%20Linear%20Units%2C%20or,1.6733%20and%20%CE%BB%20%E2%89%88%201.0507%20.
+            NÃO UTILIZA alpha EXTERNO. Seu alpha interno vale: 1.6732632423543772848170429916717 e Lambda: 1.0507009873554804934193349852946;
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Sigmoide">
+            <summary>
+            Comumente utilizada em redes neurais de propagação positiva (FeedForWard).<br/> 
+            E que precisam de ter saidas classificatórias e positivas em redes neurais multi camadas e  em outras de sinais contínuo.
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SILU">
+            <summary>
+            Sigmoid linear unit - SiLU Sigmoid shrinkage SiL or Swish-‍1<br/>
+            https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Sinc">
+            <summary>
+            https://sefiks.com/2018/01/07/sinc-as-a-neural-networks-activation-function/
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.Sinusoidal">
+            <summary>
+            https://www.gabormelli.com/RKB/Sinusoidal_Activation_Function
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SoftExponential">
+            <summary>
+            FAZ USO DE Alpha. Valores recomendados a partir de 0.01.
+            https://www.gabormelli.com/RKB/Soft_Exponential_Activation_Function
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SoftPlus">
+            <summary>
+            https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SoftSing">
+            <summary>
+            Activation functions play pivotal role in neural networks. 
+            As an alternative to hyperbolic tangent, softsign is an activation function for neural networks. 
+            Even though tanh and softsign functions are closely related, tanh converges exponentially whereas softsign converges polynomially. 
+            Even though softsign appears in literature, it would not be adopted in practice as much as tanh.<br/>
+            https://towardsdatascience.com/soft-sign-activation-function-with-tensorflow-manual-back-prop-with-tf-5a04f3c8e9c1
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.TanH">
+            <summary>
+            Sigla de Tangente Hiperbólica possui saida muito comum em redes neurais, é melhor escolha do que a sigmóide, pois explora tanto saídas positivas +1 até negativas -1.<br/>
+            https://towardsdatascience.com/soft-sign-activation-function-with-tensorflow-manual-back-prop-with-tf-5a04f3c8e9c1
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="F:TurboMind.ActiveFunc.SoftMax">
+            <summary>
+            Utilizada em redes neurais de classificação (Principalmente de imagens), Forçando saída da rede neural a representar a 
+            probabilidade dos dados de uma das classes definidas. Sem elas as saídas dos neurônios são simplesmente valores numéricos 
+            onde o maior indica a classe vencedora.<br/>
+            https://www.gabormelli.com/RKB/Soft_Exponential_Activation_Function
+            NÃO UTILIZA alpha.
+            </summary>
+        </member>
+        <member name="T:TurboMind.Comportament">
+            <summary>
+            Seleciona o tipo de comportamento que cada neurônio terá quando o mesmo exceder seus valores máximos e mínimos do gradiente.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.AMNESIA">
+            <summary>
+            Após ultrapassar limites estabelecidos, o neurônio perde a identidade, gerando novos valores de pesos e BIAS aleatários, podendo
+            gerar nova energia de saída que pode ou não ter bom resultado.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.AUDACIOUS">
+            <summary>
+            Após exceder seus limites de explosão ou vazão do gradiente, automaticamente ajustará seus pesos e BIAS para se manter
+            no maior limite do valor permitido.
+            Ousadia é uma questão de sorte ou azar, basta se arriscar.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.BEASTE">
+            <summary>
+            Se a saida do neurônio explodir, os pesos se ajustam para ficar na extremidade do Vanish, se a saída do neurônio Vazar, ajusta 
+            pesos e BIAS para ser o extremo limite da explosao.
+            Arranque de pontos muito altos, indice de acertividade mediano e acidental no inicio.
+            Após um tempo de fúria, precede um aquietamento envolto de mistério, o sistema começa a controlar ela e os resultados começam a aparecer.
+            Nesse momento, fúria e precisão começam a conversar.
+            Se conseguir dominar a besta, não haverá limites para o aprendizado.
+            Com o tempo a besta se cansa e começa a seder com o treino. 
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.LUCK">
+            <summary>
+            Escolhe um tipo de comportamento na sorte. E este se torna o padrão (Pra sempre).
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.METAMORFO">
+            <summary>
+            Quando a saída excede o valor, aplica um comportamento aleatório (Diferente de METAMORFO e LUCK).
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.NEUTRONIO">
+            <summary>
+            Ao exceder seus limites estabelecidos, neutraliza seus pesos e BIAS para que a energia seja o valor mediano de seus limites.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.RANDOMIC">
+            <summary>
+            Quando o valor é excedido, geraa um valor aleatório nos limites estabelecidos e calibra seus BIAS e pesos para que este valor seja realidade.
+            Deixe que uma pitada de aleatoriedade converja o destino da rede neural a teu favor.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.RELATIVE">
+            <summary>
+            Regula a saída da rede neural de tal forma a achatar a onda dentro do seu extremo limite permitido excedido.
+            O achatamento possui uma tolerancia para mais ou para menos dentro desse limite máximo ou mínimo de acordo de onde a saída tocar.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.CONSERVATIVE">
+            <summary>
+            Após exceder seus limites para explosao  ou vazão do gradiente, automaticamente ajustará seus pesos e BIAS para se manter
+            no menor limite dessa rede neural, criando uma personalidade mais conservadora e segura de avançar somente com muitas "tatadas" de certeza. Mas sempre
+            apelando para a acertividade garantida.
+            Mistura de sagacidade com certeza, tudo depende do orquestramento dos pontos.
+            Pode ter inicios granhando pontuação aos poucos mas com muita dose de precisão e certeza.
+            Só irá avançar a cada passo que tiver certeza do que está sendo feito.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.PING_PONG">
+            <summary>
+            Após exceder os limites do gradiente, contra ataca a parede desse gradiente com mesma energia sinética na direção oposta, e se, ainda assim
+            essa energia for maior na contra direção, vai bater com mesma intensidade, criando efeito de uma bolinha de ping pong. Esta é uma opção um pouco
+            onerosa mas com bons resultados.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.INFINITY">
+            <summary>
+            Ao chegar em uma das estremidades, a energia será considerada como se estivesse na contra ponta dos limites do gradiente, gerando
+            efeito de loop infinito até que a inercia diga o ponto.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.CENTRONIUM">
+            <summary>
+            Ao exceder os limites da extremidade, o sistema considera que esta energia partiu do centro para mesma direção, amortecento o excesso com inercia.
+            </summary>
+        </member>
+        <member name="F:TurboMind.Comportament.DESCENTRONIUM">
+            <summary>
+            Ao exceder os limites da extremidade, o sistema considera que a energia partiu do centro para a direção opsta amortecendo o excesso com inercia.
+            </summary>
+        </member>
+        <member name="T:TurboMind.TipoMapeamento">
+            <summary>
+            Tipo de mapeamento de tabelas do MindWizard. É como a tabela de mindWizard são interpretadas para alimentar o sistema.
+            </summary>
+        </member>
+        <member name="F:TurboMind.TipoMapeamento.ENTRADA_SAIDA">
+            <summary>
+            Mapeia cabeçalhos das colunas timbradas com prefixos de entrada e saida fornecidos.
+            Nesse caso a tabela previamente deve existir com prefixos de entrada e saída obedecendo a sequencia:
+            NomePrefixo: atributo
+            </summary>
+        </member>
+        <member name="F:TurboMind.TipoMapeamento.MIRROR">
+            <summary>
+            Considera todas colunas de uma tabela como argumento de entrada e se saída.
+            Faz uma cópia da situação problema para o Gabarito.
+            </summary>
+        </member>
+        <member name="T:TurboMind.FuncaoErro">
+            <summary>
+            Seleciona o tipo de função de erro desejada.
+            </summary>
+        </member>
+        <member name="F:TurboMind.FuncaoErro.SingleLoss">
+            <summary>
+            Subtrai O Valor desejado pelo obtivo apenas.
+            </summary>
+        </member>
+        <member name="F:TurboMind.FuncaoErro.AbsoluteLoss">
+            <summary>
+            Permite suporte a regressão vetorial, mas pode criar uma aprendizagem ruim. Ele não é otimizado através da decida do gradiente.<br/>
+            Mas é otimizado nos cálculos de subgradientes.
+            </summary>
+        </member>
+        <member name="F:TurboMind.FuncaoErro.SquaredLoss">
+            <summary>
+            Subtrai o desejado pelo obtido e eleva ao quadrado, isso hipersensibiliza a rede.
+            Não é interessante se houver valores muito discrepantes.
+            </summary>
+        </member>
+        <member name="M:TurboMind.MindLearningTools.CapturaAtributosStringsTabelaSeExistir(System.Data.DataTable)">
+            <summary>
+            Levanta que campos possuem strings e quantas strings diferentes tem naquele campo para gerar números únicos para cada caso.
+            </summary>
+            <param name="tabelaProcessamento"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
